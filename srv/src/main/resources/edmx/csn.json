@@ -1,0 +1,140 @@
+{
+  "namespace": "com.relation",
+  "definitions": {
+    "RelationService": {
+      "kind": "service"
+    },
+    "RelationService.CompanyEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "RELATIONSERVICE_COMPANYENTITY",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.relation.CompanyEntity"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "companyId": {
+          "@cds.persistence.name": "COMPANYID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "companyName": {
+          "@cds.persistence.name": "COMPANYNAME",
+          "type": "cds.String"
+        },
+        "linkToContact": {
+          "@cds.persistence.name": "LINKTOCONTACT",
+          "type": "cds.Association",
+          "target": "RelationService.ContactEntity",
+          "keys": [
+            {
+              "ref": [
+                "contactId"
+              ],
+              "$generatedFieldName": "linkToContact_contactId"
+            }
+          ]
+        },
+        "linkToContact_contactId": {
+          "@cds.persistence.name": "LINKTOCONTACT_CONTACTID",
+          "@odata.foreignKey4": "linkToContact",
+          "type": "cds.UUID"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "RelationService.ContactEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "RELATIONSERVICE_CONTACTENTITY",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.relation.ContactEntity"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "contactId": {
+          "@cds.persistence.name": "CONTACTID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "contactName": {
+          "@cds.persistence.name": "CONTACTNAME",
+          "type": "cds.String"
+        },
+        "contactPhone": {
+          "@cds.persistence.name": "CONTACTPHONE",
+          "type": "cds.Integer"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "com.relation.CompanyEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_RELATION_COMPANYENTITY",
+      "elements": {
+        "companyId": {
+          "@cds.persistence.name": "COMPANYID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "companyName": {
+          "@cds.persistence.name": "COMPANYNAME",
+          "type": "cds.String"
+        },
+        "linkToContact": {
+          "@cds.persistence.name": "LINKTOCONTACT",
+          "type": "cds.Association",
+          "target": "com.relation.ContactEntity",
+          "keys": [
+            {
+              "ref": [
+                "contactId"
+              ],
+              "$generatedFieldName": "linkToContact_contactId"
+            }
+          ]
+        },
+        "linkToContact_contactId": {
+          "@cds.persistence.name": "LINKTOCONTACT_CONTACTID",
+          "@odata.foreignKey4": "linkToContact",
+          "type": "cds.UUID"
+        }
+      }
+    },
+    "com.relation.ContactEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_RELATION_CONTACTENTITY",
+      "elements": {
+        "contactId": {
+          "@cds.persistence.name": "CONTACTID",
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "contactName": {
+          "@cds.persistence.name": "CONTACTNAME",
+          "type": "cds.String"
+        },
+        "contactPhone": {
+          "@cds.persistence.name": "CONTACTPHONE",
+          "type": "cds.Integer"
+        }
+      }
+    }
+  },
+  "version": {
+    "csn": "1.0"
+  },
+  "meta": {
+    "creator": "CDS Compiler v1.17.2"
+  },
+  "$version": "1.0",
+  "@sql_mapping": "plain"
+}

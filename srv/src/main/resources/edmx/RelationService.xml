@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="RelationService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="CompanyEntity" EntityType="RelationService.CompanyEntity"/>
+        <EntitySet Name="ContactEntity" EntityType="RelationService.ContactEntity"/>
+        <AssociationSet Name="CompanyEntity_linkToContact" Association="RelationService.CompanyEntity_linkToContact">
+          <End Role="CompanyEntity" EntitySet="CompanyEntity"/>
+          <End Role="ContactEntity" EntitySet="ContactEntity"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="CompanyEntity">
+        <Key>
+          <PropertyRef Name="companyId"/>
+        </Key>
+        <Property Name="companyId" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="companyName" Type="Edm.String"/>
+        <NavigationProperty Name="linkToContact" Relationship="RelationService.CompanyEntity_linkToContact" FromRole="CompanyEntity" ToRole="ContactEntity"/>
+        <Property Name="linkToContact_contactId" Type="Edm.Guid"/>
+      </EntityType>
+      <EntityType Name="ContactEntity">
+        <Key>
+          <PropertyRef Name="contactId"/>
+        </Key>
+        <Property Name="contactId" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="contactName" Type="Edm.String"/>
+        <Property Name="contactPhone" Type="Edm.Int32"/>
+      </EntityType>
+      <Association Name="CompanyEntity_linkToContact">
+        <End Role="CompanyEntity" Type="RelationService.CompanyEntity" Multiplicity="*"/>
+        <End Role="ContactEntity" Type="RelationService.ContactEntity" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="ContactEntity">
+            <PropertyRef Name="contactId"/>
+          </Principal>
+          <Dependent Role="CompanyEntity">
+            <PropertyRef Name="linkToContact_contactId"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
